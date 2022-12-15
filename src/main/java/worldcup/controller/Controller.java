@@ -20,7 +20,6 @@ public class Controller {
 
     private void initStatusMap() {
         statusMap.put(Status.READ_INPUT, this::readInput);
-
     }
 
     public Status run(Status status) {
