@@ -28,21 +28,11 @@ public class OutputView {
         print(result.toString());
     }
 
+    public void printException(PrintExceptionDto dto) {
+        print(dto.getException().getMessage());
+    }
+
     private void print(String message) {
         System.out.println(message);
     }
-
-    public void printException(PrintExceptionDto dto) {
-        System.out.println(dto.getException().getMessage());
-    }
-
-    private enum ViewMessage {
-        PRINT_TOTAL_RESULT_FORMAT("");
-        private final String message;
-
-        ViewMessage(String message) {
-            this.message = message;
-        }
-    }
-
 }
