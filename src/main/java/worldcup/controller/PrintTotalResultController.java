@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class PrintTotalResultController implements Controller {
     public static final String FILE_PATH = "src/main/resources/MatchResult.txt";
-    public static final String UNREADABLE_FILE_EXCEPTION = "파일을 읽을 수 없습니다.";
+    public static final String UNREADABLE_FILE_EXCEPTION = "[ERROR] 파일을 읽을 수 없습니다.";
 
     private final IOViewResolver ioViewResolver;
     Map<Group, StringBuilder> result = new EnumMap<>(Group.class);
@@ -37,7 +37,7 @@ public class PrintTotalResultController implements Controller {
             }
             bufferedReader.close();
         } catch (IOException exception) {
-            throw new IllegalArgumentException("읽는 데에 문제가 있다", exception);
+            throw new IllegalArgumentException(UNREADABLE_FILE_EXCEPTION, exception);
         }
     }
 

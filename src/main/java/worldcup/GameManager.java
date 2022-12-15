@@ -2,6 +2,7 @@ package worldcup;
 
 import worldcup.controller.Controller;
 import worldcup.controller.MainController;
+import worldcup.controller.PrintGroupResultController;
 import worldcup.controller.PrintTotalResultController;
 import worldcup.domain.MenuCommand;
 import worldcup.domain.Status;
@@ -33,5 +34,6 @@ public class GameManager {
 
     private static void initControllerMap(IOViewResolver ioViewResolver) {
         controllerMap.put(MenuCommand.PRINT_TOTAL_RESULT, new PrintTotalResultController(ioViewResolver));
+        controllerMap.put(MenuCommand.PRINT_GROUP_RESULT, new PrintGroupResultController(ioViewResolver));
     }
 }
