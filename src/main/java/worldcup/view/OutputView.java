@@ -1,10 +1,8 @@
 package worldcup.view;
 
-import worldcup.domain.Group;
 import worldcup.dto.output.PrintExceptionDto;
 import worldcup.dto.output.PrintTotalResultDto;
 
-import java.util.Map;
 
 public class OutputView {
     private OutputView() {
@@ -19,13 +17,7 @@ public class OutputView {
     }
 
     public void printTotalResult(PrintTotalResultDto dto) {
-        Map<Group, StringBuilder> map = dto.getResult();
-        StringBuilder result = new StringBuilder();
-        for (Map.Entry<Group, StringBuilder> entry : map.entrySet()) {
-            result.append(entry.getKey().getTitle()).append("\n");
-            result.append(entry.getValue()).append("\n");
-        }
-        print(result.toString());
+        print(dto.getResult().toString());
     }
 
     public void printException(PrintExceptionDto dto) {

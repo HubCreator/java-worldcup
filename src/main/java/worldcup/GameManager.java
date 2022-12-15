@@ -1,21 +1,28 @@
 package worldcup;
 
-import worldcup.controller.Controller;
+import worldcup.controller.InitController;
 import worldcup.controller.MainController;
-import worldcup.controller.PrintGroupResultController;
-import worldcup.controller.PrintTotalResultController;
 import worldcup.domain.MenuCommand;
-import worldcup.domain.Status;
+import worldcup.service.PrintGroupResultService;
+import worldcup.service.PrintTotalResultService;
+import worldcup.service.Service;
 import worldcup.view.IOViewResolver;
 import worldcup.view.InputView;
 import worldcup.view.OutputView;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class GameManager {
-    private static final Status INITIAL_STATUS = Status.READ_INPUT;
-    private static final Map<MenuCommand, Controller> controllerMap = new EnumMap<>(MenuCommand.class);
+    private static final MenuCommand INITIAL_STATUS = MenuCommand.DEFAULT;
+    private static final Map<MenuCommand, Supplier<Service>> serviceMap = new EnumMap<>(MenuCommand.class);
+
+    static {
+        new InitController().run();
+        serviceMap.put(MenuCommand.PRINT_TOTAL_RESULT, PrintTotalResultService::create);
+        serviceMap.put(MenuCommand.PRINT_GROUP_RESULT, PrintGroupResultService::create);
+    }
 
     private GameManager() {
 
@@ -23,17 +30,11 @@ public class GameManager {
 
     public static void run() {
         IOViewResolver ioViewResolver = new IOViewResolver(InputView.getInstance(), OutputView.getInstance());
-        MainController mainController = new MainController(controllerMap, ioViewResolver);
-        initControllerMap(ioViewResolver);
-        Status currentStatus = INITIAL_STATUS;
+        MainController mainController = new MainController(ioViewResolver, serviceMap);
+        MenuCommand currentCommand = INITIAL_STATUS;
 
-        while (currentStatus != Status.EXIT) {
-            currentStatus = mainController.run(currentStatus);
+        while (currentCommand != MenuCommand.EXIT) {
+            currentCommand = mainController.run();
         }
-    }
-
-    private static void initControllerMap(IOViewResolver ioViewResolver) {
-        controllerMap.put(MenuCommand.PRINT_TOTAL_RESULT, new PrintTotalResultController(ioViewResolver));
-        controllerMap.put(MenuCommand.PRINT_GROUP_RESULT, new PrintGroupResultController(ioViewResolver));
     }
 }

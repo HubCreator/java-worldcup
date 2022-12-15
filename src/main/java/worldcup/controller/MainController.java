@@ -1,49 +1,34 @@
 package worldcup.controller;
 
 import worldcup.domain.MenuCommand;
-import worldcup.domain.Status;
 import worldcup.dto.input.ReadInputDto;
 import worldcup.dto.output.PrintExceptionDto;
+import worldcup.service.Service;
 import worldcup.view.IOViewResolver;
 
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class MainController {
     private final IOViewResolver ioViewResolver;
-    private final Map<MenuCommand, Controller> controllerMap;
-    private final Map<Status, Supplier<Status>> statusMap;
+    private final Map<MenuCommand, Supplier<Service>> serviceMap;
 
-    public MainController(Map<MenuCommand, Controller> controllerMap, IOViewResolver ioViewResolver) {
+    public MainController(IOViewResolver ioViewResolver, Map<MenuCommand, Supplier<Service>> serviceMap) {
         this.ioViewResolver = ioViewResolver;
-        this.controllerMap = controllerMap;
-        this.statusMap = new EnumMap<>(Status.class);
-        initStatusMap();
+        this.serviceMap = serviceMap;
     }
 
-    private void initStatusMap() {
-        statusMap.put(Status.READ_INPUT, this::readInput);
-    }
-
-    public Status run(Status status) {
+    public MenuCommand run() {
         try {
-            return statusMap.get(status).get();
+            ReadInputDto readInputDto = ioViewResolver.inputViewResolve(ReadInputDto.class);
+            MenuCommand menuCommand = MenuCommand.map(readInputDto.getInput());
+            Service service = serviceMap.get(menuCommand).get();
+            return service.run(ioViewResolver);
         } catch (IllegalArgumentException exception) {
             ioViewResolver.outputViewResolve(new PrintExceptionDto(exception));
-            return status;
+            return MenuCommand.DEFAULT;
         } catch (Exception exception) {
-            return Status.EXIT;
+            return MenuCommand.EXIT;
         }
-    }
-
-    private Status readInput() {
-        ReadInputDto readInputDto = ioViewResolver.inputViewResolve(ReadInputDto.class);
-        MenuCommand menuCommand = MenuCommand.map(readInputDto.getInput());
-        controllerMap.get(menuCommand).run();
-        if (MenuCommand.isExit(menuCommand)) {
-            return Status.EXIT;
-        }
-        return Status.READ_INPUT;
     }
 }
