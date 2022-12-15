@@ -25,6 +25,7 @@ public class GameManager {
         MainController mainController = new MainController(controllerMap, ioViewResolver);
         initControllerMap(ioViewResolver);
         Status currentStatus = INITIAL_STATUS;
+
         while (currentStatus != Status.EXIT) {
             currentStatus = mainController.run(currentStatus);
         }

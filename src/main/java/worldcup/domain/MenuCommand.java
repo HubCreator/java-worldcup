@@ -31,6 +31,10 @@ public enum MenuCommand {
         }
     }
 
+    public static boolean isExit(MenuCommand command) {
+        return command == EXIT;
+    }
+
     public int getCommand() {
         return command;
     }

@@ -41,6 +41,9 @@ public class MainController {
         ReadInputDto readInputDto = ioViewResolver.inputViewResolve(ReadInputDto.class);
         MenuCommand menuCommand = MenuCommand.map(readInputDto.getInput());
         controllerMap.get(menuCommand).run();
-        return null;
+        if (MenuCommand.isExit(menuCommand)) {
+            return Status.EXIT;
+        }
+        return Status.READ_INPUT;
     }
 }
