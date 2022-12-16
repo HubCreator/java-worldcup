@@ -1,9 +1,12 @@
 package worldcup.repository;
 
+import worldcup.domain.Group;
 import worldcup.domain.Team;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TeamRepository {
 
@@ -32,9 +35,21 @@ public class TeamRepository {
     }
 
     private static void updateTeamInformation(Team teamA, Team teamB, String[] split) {
+        Group findGroup = GroupRepository.findByName(split[0]);
+
+        teamA.setGroup(findGroup);
+        teamB.setGroup(findGroup);
+
         teamA.setCurrentScore(split[4]);
         teamB.setCurrentScore(split[6]);
 
         teamA.compareAndUpdateBoth(teamB);
+    }
+
+    public static List<Team> findAllByGroup(Group group) {
+        return teams.stream()
+                .filter(m -> m.matchGroup(group))
+                .sorted()
+                .collect(Collectors.toList());
     }
 }

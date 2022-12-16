@@ -24,13 +24,18 @@ public class GroupRepository {
         return GroupRepository.groups.keySet();
     }
 
-    public static StringBuilder getByGroup(Group group) {
+    public static StringBuilder getAllTeamsByGroup(Group group) {
+        return GroupRepository.groups.get(group);
+    }
+
+    public static StringBuilder getTeamsByGroup(Group group) {
+        Group findGroup = findByName(group.getName());
         return GroupRepository.groups.get(group);
     }
 
     public static Group findByName(String groupName) {
         return groups.keySet().stream()
-                .filter(group -> group.match(groupName))
+                .filter(group -> group.matchName(groupName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_GROUP_NAME_EXCEPTION));
     }

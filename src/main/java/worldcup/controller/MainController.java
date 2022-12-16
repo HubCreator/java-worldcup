@@ -2,9 +2,7 @@ package worldcup.controller;
 
 import worldcup.domain.MenuCommand;
 import worldcup.dto.input.ReadInputDto;
-import worldcup.dto.output.PrintResultDto;
 import worldcup.dto.output.PrintExceptionDto;
-import worldcup.service.Service;
 import worldcup.view.IOViewResolver;
 
 import java.util.EnumMap;

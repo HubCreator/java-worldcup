@@ -1,7 +1,11 @@
 package worldcup.view;
 
+import worldcup.domain.Team;
 import worldcup.dto.output.PrintExceptionDto;
 import worldcup.dto.output.PrintResultDto;
+import worldcup.dto.output.PrintTeamsByGroupDto;
+
+import java.util.List;
 
 public class OutputView {
     private OutputView() {
@@ -17,6 +21,15 @@ public class OutputView {
 
     public void printResult(PrintResultDto dto) {
         print(dto.getResult().toString());
+    }
+
+    public void printTeamsByGroup(PrintTeamsByGroupDto dto) {
+        List<Team> teams = dto.getTeams();
+        StringBuilder result = new StringBuilder(dto.getGroup().getName()).append("\n");
+        for (int index = 0; index < teams.size(); index++) {
+            result.append(String.format("%d위 %s\n", index + 1, teams.get(index).getResult()));
+        }
+        print(result.toString());
     }
 
     public void printException(PrintExceptionDto dto) {

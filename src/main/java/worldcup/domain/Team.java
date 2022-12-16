@@ -2,8 +2,11 @@ package worldcup.domain;
 
 import java.util.Objects;
 
-public class Team {
+public class Team implements Comparable<Team>{
+    public static final String FORMAT = "%s, 승 : %d, 무 : %d, 패 : %d, 승점 : %d, 득실차 : %d, 득점: %d";
+
     private final String teamName;
+    private Group group;
 
     private int currentScore = 0;
 
@@ -30,7 +33,7 @@ public class Team {
 
     public void draw() {
         drawCount += 1;
-        winCount += 1;
+        winScore += 1;
     }
 
     public void addGoalCount(int score) {
@@ -78,10 +81,10 @@ public class Team {
         target.addLoseGoalCount(currentScore);
     }
 
-    private void greaterThan(Team target) {
-        if (currentScore > target.currentScore) {
-            win();
-            target.lose();
+    private void lowerThan(Team target) {
+        if (currentScore < target.currentScore) {
+            lose();
+            target.win();
         }
     }
 
@@ -92,10 +95,29 @@ public class Team {
         }
     }
 
-    private void lowerThan(Team target) {
-        if (currentScore < target.currentScore) {
-            lose();
-            target.win();
+    private void greaterThan(Team target) {
+        if (currentScore > target.currentScore) {
+            win();
+            target.lose();
         }
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public boolean matchGroup(Group group) {
+        return this.group.equals(group);
+    }
+
+    public String getResult() {
+        return String.format(FORMAT,
+                teamName, winCount, drawCount, loseCount,
+                winScore, goalCount - loseGoalCount, goalCount);
+    }
+
+    @Override
+    public int compareTo(Team o) {
+        return Integer.compare(o.winScore, this.winScore);
     }
 }

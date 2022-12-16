@@ -11,6 +11,13 @@ public class InitController implements Controller {
     public static final String FILE_PATH = "src/main/resources/MatchResult.txt";
     public static final String UNREADABLE_FILE_EXCEPTION = "파일을 읽을 수 없습니다.";
 
+    private void parseInformation(Scanner scanner) {
+        String[] split = scanner.nextLine().split(" ");
+
+        GroupRepository.saveByName(split);
+        TeamRepository.update(split);
+    }
+
     @Override
     public void run() {
         try {
@@ -21,12 +28,5 @@ public class InitController implements Controller {
         } catch (FileNotFoundException exception) {
             throw new IllegalArgumentException(UNREADABLE_FILE_EXCEPTION, exception);
         }
-    }
-
-    private void parseInformation(Scanner scanner) {
-        String[] split = scanner.nextLine().split(" ");
-
-        GroupRepository.saveByName(split);
-        TeamRepository.update(split);
     }
 }
