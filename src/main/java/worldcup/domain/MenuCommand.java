@@ -7,7 +7,8 @@ public enum MenuCommand {
     PRINT_TOTAL_RESULT(1),
     PRINT_GROUP_RESULT(2),
     PRINT_TEAM_RESULT(3),
-    EXIT(4);
+    PRINT_ADVANCE_RESULT(4),
+    EXIT(5);
 
     private final int command;
 
