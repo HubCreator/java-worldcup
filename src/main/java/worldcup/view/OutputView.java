@@ -1,8 +1,7 @@
 package worldcup.view;
 
 import worldcup.dto.output.PrintExceptionDto;
-import worldcup.dto.output.PrintTotalResultDto;
-
+import worldcup.dto.output.PrintResultDto;
 
 public class OutputView {
     private OutputView() {
@@ -16,7 +15,7 @@ public class OutputView {
         return OutputViewSingletonHelper.OUTPUT_VIEW;
     }
 
-    public void printTotalResult(PrintTotalResultDto dto) {
+    public void printResult(PrintResultDto dto) {
         print(dto.getResult().toString());
     }
 
