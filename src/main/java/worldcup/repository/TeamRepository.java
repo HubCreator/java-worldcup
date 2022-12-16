@@ -8,14 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class TeamRepository {
 
     private static final String INVALID_TEAM_NAME = "존재하지 않는 팀입니다.";
     private static final Set<Team> teams = new HashSet<>();
 
-    public static void update(String[] split) {
+    public static void update(String line) {
+        String[] split = line.split(" ");
         Team teamA = findByName(new Team(split[1]));
         Team teamB = findByName(new Team(split[3]));
 

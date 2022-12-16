@@ -25,7 +25,7 @@ public class PrintTotalResultController implements Controller {
         StringBuilder result = new StringBuilder();
         for (Group group : allGroups) {
             result.append(group.getName()).append("\n");
-            result.append(GroupRepository.getAllTeamsByGroup(group)).append("\n");
+            result.append(GroupRepository.getAllTeamsByGroup(group).getRecords()).append("\n");
         }
         ioViewResolver.outputViewResolve(new PrintResultDto(result));
     }

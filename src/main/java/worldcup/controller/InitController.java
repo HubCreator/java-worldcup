@@ -12,11 +12,10 @@ public class InitController implements Controller {
     public static final String UNREADABLE_FILE_EXCEPTION = "파일을 읽을 수 없습니다.";
 
     private void parseInformation(Scanner scanner) {
-        String[] split = scanner.nextLine().split(" ");
+        String line = scanner.nextLine();
 
-        GroupRepository.saveByName(split);
-        TeamRepository.update(split);
-
+        GroupRepository.saveByName(line);
+        TeamRepository.update(line);
     }
 
     @Override

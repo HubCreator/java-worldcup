@@ -1,6 +1,7 @@
 package worldcup.repository;
 
 import worldcup.domain.Group;
+import worldcup.domain.Records;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -8,14 +9,16 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class GroupRepository {
-    private static final Map<Group, StringBuilder> groups = new TreeMap();
+    private static final Map<Group, Records> groups = new TreeMap();
     public static final String INVALID_GROUP_NAME_EXCEPTION = "[ERROR] 존재하지 않는 조";
 
-    public static Group saveByName(String[] split) {
+    public static Group saveByName(String line) {
+        String[] split = line.split(" ");
         Group group = new Group(split[0]);
-        groups.put(group, groups.getOrDefault(group, new StringBuilder())
-                .append(String.join(" ", Arrays.copyOfRange(split, 1, split.length)))
-                .append("\n"));
+        if (!groups.containsKey(group)) {
+            groups.put(group, new Records());
+        }
+        groups.get(group).add(String.join(" ", Arrays.copyOfRange(split, 1, split.length)));
 
         return group;
     }
@@ -24,7 +27,7 @@ public class GroupRepository {
         return GroupRepository.groups.keySet();
     }
 
-    public static StringBuilder getAllTeamsByGroup(Group group) {
+    public static Records getAllTeamsByGroup(Group group) {
         return GroupRepository.groups.get(group);
     }
 
