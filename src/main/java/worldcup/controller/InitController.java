@@ -18,7 +18,6 @@ public class InitController {
         GroupRepository.save(line);
         RecordsRepository.save(line);
         TeamRepository.update(line);
-        TeamRepository.updateRanking();
     }
 
     public static void run() {
@@ -27,6 +26,7 @@ public class InitController {
             while (scanner.hasNext()) {
                 parseInformation(scanner);
             }
+            TeamRepository.updateRanking();
         } catch (FileNotFoundException exception) {
             throw new IllegalArgumentException(UNREADABLE_FILE_EXCEPTION, exception);
         }
