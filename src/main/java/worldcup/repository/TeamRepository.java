@@ -37,14 +37,20 @@ public class TeamRepository {
     }
 
     public static List<Team> findAllByGroup(Group group) {
-        List<Team> result = teams.stream()
+        return teams.stream()
                 .filter(m -> m.matchGroup(group))
                 .sorted()
                 .collect(Collectors.toList());
-        for (int index = 0; index <result.size(); index++) {
-            result.get(index).setRanking(index + 1);
+    }
+
+    public static void updateRanking() {
+        Set<Group> allGroup = GroupRepository.findAll();
+        for (Group group : allGroup) {
+            List<Team> teams = findAllByGroup(group);
+            for (int index = 0; index <teams.size(); index++) {
+                teams.get(index).setRanking(index + 1);
+            }
         }
-        return result;
     }
 
     private static void updateTeamInformation(Team teamA, Team teamB, String[] split) {

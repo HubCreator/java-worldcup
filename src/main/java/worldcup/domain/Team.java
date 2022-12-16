@@ -142,7 +142,9 @@ public class Team implements Comparable<Team> {
 
     @Override
     public int compareTo(Team o) {
-        return Integer.compare(o.winScore, this.winScore);
+        int x = o.winScore + (o.goalCount - o.loseGoalCount) + o.goalCount;
+        int y = winScore + (goalCount - loseGoalCount) + goalCount;
+        return Integer.compare(x, y);
     }
 
     @Override

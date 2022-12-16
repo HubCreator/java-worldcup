@@ -11,7 +11,7 @@ public class GameManager {
     private static final MenuCommand INITIAL_STATUS = MenuCommand.DEFAULT;
 
     static {
-        new InitController().run();
+        InitController.run();
     }
 
     private GameManager() {
