@@ -12,7 +12,7 @@ public class GroupRepository {
     private static final Map<Group, Records> groups = new TreeMap();
     public static final String INVALID_GROUP_NAME_EXCEPTION = "[ERROR] 존재하지 않는 조";
 
-    public static Group saveByName(String line) {
+    public static Group saveGroupAndRecords(String line) {
         String[] split = line.split(" ");
         Group group = new Group(split[0]);
         if (!groups.containsKey(group)) {
@@ -23,15 +23,15 @@ public class GroupRepository {
         return group;
     }
 
-    public static Set<Group> findAll() {
+    public static Set<Group> findAllGroup() {
         return GroupRepository.groups.keySet();
     }
 
-    public static Records getAllTeamsByGroup(Group group) {
+    public static Records getAllRecordsByGroup(Group group) {
         return GroupRepository.groups.get(group);
     }
 
-    public static Group findByName(String groupName) {
+    public static Group findGroupByName(String groupName) {
         return groups.keySet().stream()
                 .filter(group -> group.matchName(groupName))
                 .findFirst()

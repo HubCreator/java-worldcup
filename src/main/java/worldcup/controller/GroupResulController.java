@@ -10,22 +10,22 @@ import worldcup.view.IOViewResolver;
 
 import java.util.List;
 
-public class PrintGroupResulController implements Controller {
+public class GroupResulController implements Controller {
 
     private final IOViewResolver ioViewResolver;
 
-    private PrintGroupResulController(IOViewResolver ioViewResolver) {
+    private GroupResulController(IOViewResolver ioViewResolver) {
         this.ioViewResolver = ioViewResolver;
     }
 
-    public static PrintGroupResulController create(IOViewResolver ioViewResolver) {
-        return new PrintGroupResulController(ioViewResolver);
+    public static GroupResulController create(IOViewResolver ioViewResolver) {
+        return new GroupResulController(ioViewResolver);
     }
 
     @Override
     public void run() {
         ReadGroupDto readGroupDto = ioViewResolver.inputViewResolve(ReadGroupDto.class);
-        Group findGroup = GroupRepository.findByName(readGroupDto.getInput());
+        Group findGroup = GroupRepository.findGroupByName(readGroupDto.getInput());
         List<Team> allByGroup = TeamRepository.findAllByGroup(findGroup);
         ioViewResolver.outputViewResolve(new PrintTeamsByGroupDto(findGroup, allByGroup));
     }

@@ -14,7 +14,7 @@ public class InitController implements Controller {
     private void parseInformation(Scanner scanner) {
         String line = scanner.nextLine();
 
-        GroupRepository.saveByName(line);
+        GroupRepository.saveGroupAndRecords(line);
         TeamRepository.update(line);
     }
 

@@ -20,9 +20,9 @@ public class MainController {
     }
 
     private void initControllerMap() {
-        controllerMap.put(MenuCommand.PRINT_TOTAL_RESULT, () -> PrintTotalResultController.create(ioViewResolver));
-        controllerMap.put(MenuCommand.PRINT_GROUP_RESULT, () -> PrintGroupResulController.create(ioViewResolver));
-        controllerMap.put(MenuCommand.PRINT_TEAM_RESULT, () -> PrintTeamResultController.create(ioViewResolver));
+        controllerMap.put(MenuCommand.PRINT_TOTAL_RESULT, () -> TotalResultController.create(ioViewResolver));
+        controllerMap.put(MenuCommand.PRINT_GROUP_RESULT, () -> GroupResulController.create(ioViewResolver));
+        controllerMap.put(MenuCommand.PRINT_TEAM_RESULT, () -> TeamResultController.create(ioViewResolver));
     }
 
     public MenuCommand run() {

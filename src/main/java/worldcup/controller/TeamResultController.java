@@ -6,16 +6,16 @@ import worldcup.dto.output.PrintTeamResultDto;
 import worldcup.repository.TeamRepository;
 import worldcup.view.IOViewResolver;
 
-public class PrintTeamResultController implements Controller {
+public class TeamResultController implements Controller {
 
     private final IOViewResolver ioViewResolver;
 
-    public PrintTeamResultController(IOViewResolver ioViewResolver) {
+    public TeamResultController(IOViewResolver ioViewResolver) {
         this.ioViewResolver = ioViewResolver;
     }
 
-    public static PrintTeamResultController create(IOViewResolver ioViewResolver) {
-        return new PrintTeamResultController(ioViewResolver);
+    public static TeamResultController create(IOViewResolver ioViewResolver) {
+        return new TeamResultController(ioViewResolver);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class TeamRepository {
     }
 
     private static void updateTeamInformation(Team teamA, Team teamB, String[] split) {
-        Group findGroup = GroupRepository.findByName(split[0]);
+        Group findGroup = GroupRepository.findGroupByName(split[0]);
 
         teamA.addHistory(String.join(" ", Arrays.copyOfRange(split, 1, split.length)));
         teamB.addHistory(String.join(" ", Arrays.copyOfRange(split, 1, split.length)));
