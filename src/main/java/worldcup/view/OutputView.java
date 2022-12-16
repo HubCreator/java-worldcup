@@ -2,9 +2,9 @@ package worldcup.view;
 
 import worldcup.domain.Team;
 import worldcup.dto.output.PrintExceptionDto;
-import worldcup.dto.output.PrintResultDto;
+import worldcup.dto.output.PrintTotalResultDto;
 import worldcup.dto.output.PrintTeamResultDto;
-import worldcup.dto.output.PrintTeamsByGroupDto;
+import worldcup.dto.output.PrintGroupResultDto;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ public class OutputView {
         return OutputViewSingletonHelper.OUTPUT_VIEW;
     }
 
-    public void printResult(PrintResultDto dto) {
+    public void printResult(PrintTotalResultDto dto) {
         print(dto.getResult().toString());
     }
 
-    public void printTeamsByGroup(PrintTeamsByGroupDto dto) {
+    public void printTeamsByGroup(PrintGroupResultDto dto) {
         List<Team> teams = dto.getTeams();
         StringBuilder result = new StringBuilder(dto.getGroup().getName()).append("\n");
         for (int index = 0; index < teams.size(); index++) {

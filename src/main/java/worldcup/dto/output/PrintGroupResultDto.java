@@ -5,11 +5,11 @@ import worldcup.domain.Team;
 
 import java.util.List;
 
-public class PrintTeamsByGroupDto {
+public class PrintGroupResultDto {
     private final List<Team> teams;
     private final Group group;
 
-    public PrintTeamsByGroupDto(Group findGroup, List<Team> allByGroup) {
+    public PrintGroupResultDto(Group findGroup, List<Team> allByGroup) {
         this.group = findGroup;
         this.teams = allByGroup;
     }

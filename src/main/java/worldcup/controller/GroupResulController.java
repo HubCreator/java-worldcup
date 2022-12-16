@@ -3,7 +3,7 @@ package worldcup.controller;
 import worldcup.domain.Group;
 import worldcup.domain.Team;
 import worldcup.dto.input.ReadGroupDto;
-import worldcup.dto.output.PrintTeamsByGroupDto;
+import worldcup.dto.output.PrintGroupResultDto;
 import worldcup.repository.GroupRepository;
 import worldcup.repository.TeamRepository;
 import worldcup.view.IOViewResolver;
@@ -27,6 +27,6 @@ public class GroupResulController implements Controller {
         ReadGroupDto readGroupDto = ioViewResolver.inputViewResolve(ReadGroupDto.class);
         Group findGroup = GroupRepository.findGroupByName(readGroupDto.getInput());
         List<Team> allByGroup = TeamRepository.findAllByGroup(findGroup);
-        ioViewResolver.outputViewResolve(new PrintTeamsByGroupDto(findGroup, allByGroup));
+        ioViewResolver.outputViewResolve(new PrintGroupResultDto(findGroup, allByGroup));
     }
 }

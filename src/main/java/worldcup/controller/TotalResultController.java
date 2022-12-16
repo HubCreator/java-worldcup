@@ -1,7 +1,7 @@
 package worldcup.controller;
 
 import worldcup.domain.Group;
-import worldcup.dto.output.PrintResultDto;
+import worldcup.dto.output.PrintTotalResultDto;
 import worldcup.repository.GroupRepository;
 import worldcup.repository.RecordsRepository;
 import worldcup.view.IOViewResolver;
@@ -28,6 +28,6 @@ public class TotalResultController implements Controller {
             result.append(group.getName()).append("\n");
             result.append(RecordsRepository.getRecordsByGroup(group).getRecords()).append("\n");
         }
-        ioViewResolver.outputViewResolve(new PrintResultDto(result));
+        ioViewResolver.outputViewResolve(new PrintTotalResultDto(result));
     }
 }

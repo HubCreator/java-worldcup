@@ -1,8 +1,6 @@
 package worldcup.dto.output;
 
 public class PrintTotalResultDto {
-
-
     private final StringBuilder result;
 
     public PrintTotalResultDto(StringBuilder result) {
