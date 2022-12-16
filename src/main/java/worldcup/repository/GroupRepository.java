@@ -1,38 +1,28 @@
 package worldcup.repository;
 
 import worldcup.domain.Group;
-import worldcup.domain.Records;
 
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class GroupRepository {
-    private static final Map<Group, Records> groups = new TreeMap();
+    private static final Set<Group> groups = new TreeSet<>();
     public static final String INVALID_GROUP_NAME_EXCEPTION = "[ERROR] 존재하지 않는 조";
 
-    public static Group saveGroupAndRecords(String line) {
+    public static Group save(String line) {
         String[] split = line.split(" ");
         Group group = new Group(split[0]);
-        if (!groups.containsKey(group)) {
-            groups.put(group, new Records());
-        }
-        groups.get(group).add(String.join(" ", Arrays.copyOfRange(split, 1, split.length)));
+        groups.add(group);
 
         return group;
     }
 
-    public static Set<Group> findAllGroup() {
-        return GroupRepository.groups.keySet();
-    }
-
-    public static Records getAllRecordsByGroup(Group group) {
-        return GroupRepository.groups.get(group);
+    public static Set<Group> findAll() {
+        return GroupRepository.groups;
     }
 
     public static Group findGroupByName(String groupName) {
-        return groups.keySet().stream()
+        return groups.stream()
                 .filter(group -> group.matchName(groupName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_GROUP_NAME_EXCEPTION));

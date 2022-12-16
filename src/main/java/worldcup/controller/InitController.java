@@ -1,6 +1,7 @@
 package worldcup.controller;
 
 import worldcup.repository.GroupRepository;
+import worldcup.repository.RecordsRepository;
 import worldcup.repository.TeamRepository;
 
 import java.io.File;
@@ -14,7 +15,8 @@ public class InitController implements Controller {
     private void parseInformation(Scanner scanner) {
         String line = scanner.nextLine();
 
-        GroupRepository.saveGroupAndRecords(line);
+        GroupRepository.save(line);
+        RecordsRepository.save(line);
         TeamRepository.update(line);
     }
 

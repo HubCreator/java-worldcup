@@ -3,6 +3,7 @@ package worldcup.controller;
 import worldcup.domain.Group;
 import worldcup.dto.output.PrintResultDto;
 import worldcup.repository.GroupRepository;
+import worldcup.repository.RecordsRepository;
 import worldcup.view.IOViewResolver;
 
 import java.util.Set;
@@ -21,11 +22,11 @@ public class TotalResultController implements Controller {
 
     @Override
     public void run() {
-        Set<Group> allGroups = GroupRepository.findAllGroup();
+        Set<Group> allGroups = GroupRepository.findAll();
         StringBuilder result = new StringBuilder();
         for (Group group : allGroups) {
             result.append(group.getName()).append("\n");
-            result.append(GroupRepository.getAllRecordsByGroup(group).getRecords()).append("\n");
+            result.append(RecordsRepository.getRecordsByGroup(group).getRecords()).append("\n");
         }
         ioViewResolver.outputViewResolve(new PrintResultDto(result));
     }
