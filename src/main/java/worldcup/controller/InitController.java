@@ -16,6 +16,7 @@ public class InitController implements Controller {
 
         GroupRepository.saveByName(split);
         TeamRepository.update(split);
+
     }
 
     @Override

@@ -2,8 +2,10 @@ package worldcup.view;
 
 import worldcup.dto.input.ReadGroupDto;
 import worldcup.dto.input.ReadInputDto;
+import worldcup.dto.input.ReadTeamDto;
 import worldcup.dto.output.PrintResultDto;
 import worldcup.dto.output.PrintExceptionDto;
+import worldcup.dto.output.PrintTeamResultDto;
 import worldcup.dto.output.PrintTeamsByGroupDto;
 import worldcup.view.exception.NotFoundViewException;
 
@@ -24,12 +26,13 @@ public class IOViewResolver {
     private void initInputViewMappings(InputView inputView) {
         inputViewMap.put(ReadInputDto.class, inputView::readInput);
         inputViewMap.put(ReadGroupDto.class, inputView::readGroup);
+        inputViewMap.put(ReadTeamDto.class, inputView::readTeam);
     }
 
     private void initOutputViewMappings(OutputView outputView) {
-//        outputViewMap.put(PrintTotalResultDto.class, dto -> outputView.printTotalResult((PrintTotalResultDto) dto));
         outputViewMap.put(PrintResultDto.class, dto -> outputView.printResult((PrintResultDto) dto));
         outputViewMap.put(PrintTeamsByGroupDto.class, dto -> outputView.printTeamsByGroup((PrintTeamsByGroupDto) dto));
+        outputViewMap.put(PrintTeamResultDto.class, dto -> outputView.printTeamResult((PrintTeamResultDto) dto));
         outputViewMap.put(PrintExceptionDto.class, dto -> outputView.printException((PrintExceptionDto) dto));
     }
 

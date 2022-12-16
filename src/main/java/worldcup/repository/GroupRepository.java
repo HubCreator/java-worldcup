@@ -28,11 +28,6 @@ public class GroupRepository {
         return GroupRepository.groups.get(group);
     }
 
-    public static StringBuilder getTeamsByGroup(Group group) {
-        Group findGroup = findByName(group.getName());
-        return GroupRepository.groups.get(group);
-    }
-
     public static Group findByName(String groupName) {
         return groups.keySet().stream()
                 .filter(group -> group.matchName(groupName))

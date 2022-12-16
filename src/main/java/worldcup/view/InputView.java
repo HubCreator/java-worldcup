@@ -3,6 +3,7 @@ package worldcup.view;
 import camp.nextstep.edu.missionutils.Console;
 import worldcup.dto.input.ReadGroupDto;
 import worldcup.dto.input.ReadInputDto;
+import worldcup.dto.input.ReadTeamDto;
 
 public class InputView {
     private InputView() {
@@ -28,6 +29,12 @@ public class InputView {
         return new ReadGroupDto(input);
     }
 
+    public ReadTeamDto readTeam() {
+        printMessage(ViewMessage.TEAM_NAME);
+        String input = getUserInput();
+        return new ReadTeamDto(input);
+    }
+
     private String getUserInput() {
         return Console.readLine();
     }
@@ -44,7 +51,8 @@ public class InputView {
                 "5. 종료\n\n" +
                 "출력할 내용을 입력하세요. (1 ~ 5)"
         ),
-        GROUP_NAME("출력할 조를 입력하세요 (A ~ H)");
+        GROUP_NAME("출력할 조를 입력하세요 (A ~ H)"),
+        TEAM_NAME("출력할 국가를 입력하세요 (월드컵 출전 국가)");
 
         private final String message;
 

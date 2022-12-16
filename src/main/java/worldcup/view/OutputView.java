@@ -3,6 +3,7 @@ package worldcup.view;
 import worldcup.domain.Team;
 import worldcup.dto.output.PrintExceptionDto;
 import worldcup.dto.output.PrintResultDto;
+import worldcup.dto.output.PrintTeamResultDto;
 import worldcup.dto.output.PrintTeamsByGroupDto;
 
 import java.util.List;
@@ -27,9 +28,18 @@ public class OutputView {
         List<Team> teams = dto.getTeams();
         StringBuilder result = new StringBuilder(dto.getGroup().getName()).append("\n");
         for (int index = 0; index < teams.size(); index++) {
-            result.append(String.format("%d위 %s\n", index + 1, teams.get(index).getResult()));
+            result.append(String.format("%d위 %s\n", index + 1, teams.get(index).getPerformance()));
         }
         print(result.toString());
+    }
+
+    public void printTeamResult(PrintTeamResultDto dto) {
+        Team team = dto.getTeam();
+        String result = team.getGroup().getName() + "\n" +
+                team.getPerformance() + "\n" +
+                team.getHistories() + "\n" +
+                team.getCanAdvance();
+        print(result);
     }
 
     public void printException(PrintExceptionDto dto) {

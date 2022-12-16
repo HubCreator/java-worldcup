@@ -3,10 +3,12 @@ package worldcup.repository;
 import worldcup.domain.Group;
 import worldcup.domain.Team;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class TeamRepository {
 
@@ -34,8 +36,22 @@ public class TeamRepository {
                 .orElse(team);
     }
 
+    public static List<Team> findAllByGroup(Group group) {
+        List<Team> result = teams.stream()
+                .filter(m -> m.matchGroup(group))
+                .sorted()
+                .collect(Collectors.toList());
+        for (int index = 0; index <result.size(); index++) {
+            result.get(index).setRanking(index + 1);
+        }
+        return result;
+    }
+
     private static void updateTeamInformation(Team teamA, Team teamB, String[] split) {
         Group findGroup = GroupRepository.findByName(split[0]);
+
+        teamA.addHistory(String.join(" ", Arrays.copyOfRange(split, 1, split.length)));
+        teamB.addHistory(String.join(" ", Arrays.copyOfRange(split, 1, split.length)));
 
         teamA.setGroup(findGroup);
         teamB.setGroup(findGroup);
@@ -44,12 +60,5 @@ public class TeamRepository {
         teamB.setCurrentScore(split[6]);
 
         teamA.compareAndUpdateBoth(teamB);
-    }
-
-    public static List<Team> findAllByGroup(Group group) {
-        return teams.stream()
-                .filter(m -> m.matchGroup(group))
-                .sorted()
-                .collect(Collectors.toList());
     }
 }
